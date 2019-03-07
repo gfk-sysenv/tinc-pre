@@ -1,0 +1,23 @@
+tinc:
+  image: tinc-pre:v3
+  ports:
+    - "655/tcp"
+    - "655/udp"
+  volumes:
+    - /etc/tinc
+    - /var/run/docker.sock:/tmp/docker.sock:ro
+#  devices:
+#    - "/dev/net/tun"
+  environment:
+    - VENDOR=${VENDOR}
+    - ZONE=${ZONE}
+    - ADDRESS=10.128.0.40 
+    - NETMASK=255.128.0.0
+    - RUNMODE=server
+    - DHCP_DNS=8.8.8.8
+    - DHCP_START=10.128.0.50
+    - DHCP_END=10.128.0.250
+  cap_add:
+    - NET_ADMIN
+  dns: 8.8.8.8
+  restart: always
